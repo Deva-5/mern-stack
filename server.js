@@ -6,7 +6,7 @@ const options = { extensions:['html','htm','css','js','ico','jpg','jpeg','png','
 app.use(express.static("public",options));
 
 app.get("/", function(req, res){
-	res.sendFile(__dirname+"/resume.html");
+	res.sendFile(__dirname+"/card.html");
 });
 
 app.listen(port, function(){
