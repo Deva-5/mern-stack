@@ -8,7 +8,7 @@ const options = { extensions:['html','htm','css','js','ico','jpg','jpeg','png','
 
 app.use(express.static(__dirname));
 
-app.get("/", function(req, res){
+app.get("/card", function(req, res){
 	res.sendFile(__dirname+"/card.html");
 });
 mongoose.set('strictQuery',true);
