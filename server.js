@@ -11,6 +11,10 @@ app.use(express.static(__dirname));
 app.get("/card", function(req, res){
 	res.sendFile(__dirname+"/card.html");
 });
+
+app.get("/resume", function(req, res){
+	res.sendFile(__dirname+"/resume.html");
+});
 mongoose.set('strictQuery',true);
 mongoose.connect(process.env.MONGO_CONNECTION_STRING,{},function(err){
 	if(err)
