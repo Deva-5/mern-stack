@@ -8,6 +8,8 @@ const options = { extensions:['html','htm','css','js','ico','jpg','jpeg','png','
 
 app.use(express.static(__dirname));
 
+app.use(express.static("public",options));
+
 app.get("/card", function(req, res){
 	res.sendFile(__dirname+"/card.html");
 });
@@ -23,17 +25,61 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING,{},function(err){
 	}
 	else
 	{
-		console.log("DB connected");
-		userLib.createFirstUser(function(err,res)
+		// userLib.createFirstUser(function(err,res)
+		// {
+		// 	if(err)
+		// 	{
+		
+		// 	}
+		// 	else{
+		// 		console.log(result);
+		// 	}
+		// });
+		// userLib.createUser({userName : "beingzero" , yearOfGraduation : 2025},function(err,result){
+		// 	if(err)
+		// 	{
+		// 		console.error(err);
+		// 	}
+		// 	else{
+		// 		console.log(result);
+		// 	}
+		// });
+		// userLib.updateUser(function(err,result)
+		// {
+		// 	if(err)
+		// 	{
+		// 		console.error(err);
+		// 	}
+		// 	else{
+		// 		console.log(result);
+		// 	}
+		// });
+		userLib.deleteUser("deva",function(err,result)
 		{
-			if(err)
-			{
-
+			if(err){
+				console.error(err);
 			}
 			else{
-				console.log(res);
+				console.log(result);
 			}
 		});
+		// userLib.getUsersbyFilter({userName : "deva"}, function(err,result){
+		// 	if(err){
+		// 		console.error(err);
+		// 	}
+		// 	else{
+		// 		console.log(res);
+		// 	}
+		// });
+		// userLib.getAllUsers(function(err,result){
+		// 	if(err){
+		// 		console.error(err);
+		// 	}
+		// 	else{
+		// 		console.log(result);
+		// 	}
+		// });
+
 		app.listen(port, function(){
 			console.log("Server running on http://localhost:"+port);
 			console.log(`Server running on http://localhost:${port}`);

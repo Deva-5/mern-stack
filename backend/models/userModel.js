@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-    userName :{type : String},
+    userName :{type : String , requied : true,unique : true},
     yearOfGraduation : {type : Number},
-    createAt : {type : Date},
-    isDeleted:{type : Boolean}
+    createAt : {type : Date,default:Date.now},
+    isDeleted:{type : Boolean,default :false}
 });
 
-module.exports = mongoose.model("user", userSchema);
+const userModel = mongoose.model("user",userSchema);
+
+module.exports = userModel;
