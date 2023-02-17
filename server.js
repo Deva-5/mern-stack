@@ -38,7 +38,7 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING,{},function(err){
 		// 		console.log(result);
 		// 	}
 		// });
-		// userLib.createUser({userName : "deva" , yearOfGraduation : 2025},function(err,result){
+		// userLib.createUser({userName : "deva1" , yearOfGraduation : 2025},function(err,result){
 		// 	if(err)
 		// 	{
 		// 		console.error(err);
@@ -47,16 +47,16 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING,{},function(err){
 		// 		console.log(result);
 		// 	}
 		// });
-		userLib.updateUser("deva", {yearOfGraduation: 2000}, function(err,result)
-		{
-			if(err)
-			{
-				console.error(err);
-			}
-			else{
-				console.log(result);
-			}
-		});
+		// userLib.updateUser("deva", {yearOfGraduation: 2000}, function(err,result)
+		// {
+		// 	if(err)
+		// 	{
+		// 		console.error(err);
+		// 	}
+		// 	else{
+		// 		console.log(result);
+		// 	}
+		// });
 		// userLib.deleteUser("deva kumar1",function(err,result)
 		// {
 		// 	if(err){
@@ -66,14 +66,14 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING,{},function(err){
 		// 		console.log(result);
 		// 	}
 		// });
-		// userLib.getUsersbyFilter({userName : "deva"}, function(err,result){
-		// 	if(err){
-		// 		console.error(err);
-		// 	}
-		// 	else{
-		// 		console.log(res);
-		// 	}
-		// });
+		userLib.getUsersbyFilter({yearOfGraduation : 2000}, function(err,result){
+			if(err){
+				console.error(err);
+			}
+			else{
+				console.log(result);
+			}
+		});
 		// userLib.getAllUsers(function(err,result){
 		// 	if(err){
 		// 		console.error(err);

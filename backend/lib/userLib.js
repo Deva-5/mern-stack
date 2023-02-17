@@ -70,9 +70,10 @@ module.exports.deleteUser = async function(username,callback)
 
 module.exports.getUsersbyFilter = async function(filter,callback) {
     try {
-        var user = await userModel.find({filter});
+        var user = await userModel.find(filter);
         callback(null,user);
-    } catch (err) {
+    } 
+    catch (err) {
         callback(err, null);
     }
 }
