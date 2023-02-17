@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-    userName :{type : String , requied : true,unique : true},
+    userName :{type : String , required: true, unique: true},
     yearOfGraduation : {type : Number},
     createAt : {type : Date,default:Date.now},
     isDeleted:{type : Boolean,default :false}
