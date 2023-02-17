@@ -11,6 +11,7 @@
         {
             border-radius: 16px;
             border: 1px solid lightgrey;
+            justify-content: center;
             width: 360px;
             padding: 10px;
             margin: 50px;
@@ -37,19 +38,56 @@
         {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             color :red;
+            display: inline;
         }
     </style>
 </head>
 <body>
     <div class="flexbox">
         <div class="card">
-            <img src="public/deva.jpg" class="card-img" alt="Profile pic" style="width:100%">
+            <img id="userImage" src="public/images/deva.jpg" class="card-img" alt="Profile pic" style="width:100%">
             <div class="container">
-              <h4><b>Deva Kumar</b></h4>
-              <p>Comptur Engineer</p>
+              <h4 id="userTitle"><b>Deva Kumar</b></h4>
+              <p id = "userDesignation">Engineer</p>
             </div>
+            <button onclick="toggleUser()">Toggle</button>
         </div>
     </div>
-    
+    <script>
+        const userOne = {
+            name : "Deva Kumar",
+            designation : "Engineering",
+            image : "images/deva.jpg",
+        }
+        const userTwo = {
+            name : "John Doe",
+            designation : "Architect",
+            image : "images/johndoe.jpg",
+        }
+
+        let currentIsDeva = true;
+        let currentUser = userOne;
+
+        let userTitle = document.getElementById("userTitle");
+        let userImage = document.getElementById("userImage");
+        let userDesignation = document.getElementById("userDesignation");
+
+
+        let toggleUser = function() {
+            if(currentIsDeva){
+                currentUser = userTwo;
+                currentIsDeva = false;
+            }
+            else{
+                currentUser = userOne;
+                currentIsDeva = true;
+            }
+
+            userTitle.innerHTML = currentUser.name;
+            userDesignation.innerHTML = currentUser.designation;
+            userImage.src = currentUser.image;
+        }
+
+    </script>
 </body>
 </html>

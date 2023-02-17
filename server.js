@@ -11,11 +11,11 @@ app.use(express.static(__dirname));
 app.use(express.static("public",options));
 
 app.get("/card", function(req, result){
-	res.sendFile(__dirname+"/card.html");
+	result.sendFile(__dirname+"/card.html");
 });
 
 app.get("/resume", function(req, result){
-	res.sendFile(__dirname+"/resume.html");
+	result.sendFile(__dirname+"/resume.html");
 });
 mongoose.set('strictQuery',true);
 mongoose.connect(process.env.MONGO_CONNECTION_STRING,{},function(err){
@@ -66,14 +66,14 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING,{},function(err){
 		// 		console.log(result);
 		// 	}
 		// });
-		userLib.getUsersbyFilter({yearOfGraduation : 2000}, function(err,result){
-			if(err){
-				console.error(err);
-			}
-			else{
-				console.log(result);
-			}
-		});
+		// userLib.getUsersbyFilter({yearOfGraduation : 2000}, function(err,result){
+		// 	if(err){
+		// 		console.error(err);
+		// 	}
+		// 	else{
+		// 		console.log(result);
+		// 	}
+		// });
 		// userLib.getAllUsers(function(err,result){
 		// 	if(err){
 		// 		console.error(err);
