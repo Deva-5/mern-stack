@@ -19,7 +19,7 @@ app.get("/resume", function(req, result){
 });
 
 app.get("/weather", function(req, result){
-	result.sendFile(__dirname+"/weather.html");
+	result.sendFile(__dirname+"/weather1.html");
 });
 mongoose.set('strictQuery',true);
 mongoose.connect(process.env.MONGO_CONNECTION_STRING,{},function(err){
