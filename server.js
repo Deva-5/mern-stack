@@ -17,6 +17,10 @@ app.get("/card", function(req, result){
 app.get("/resume", function(req, result){
 	result.sendFile(__dirname+"/resume.html");
 });
+
+app.get("/weather", function(req, result){
+	result.sendFile(__dirname+"/weather.html");
+});
 mongoose.set('strictQuery',true);
 mongoose.connect(process.env.MONGO_CONNECTION_STRING,{},function(err){
 	if(err)
