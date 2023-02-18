@@ -18,7 +18,7 @@ app.get("/resume", function(req, result){
 	result.sendFile(__dirname+"/resume.html");
 });
 
-app.get("/weather", function(req, result){
+app.get("/weather1", function(req, result){
 	result.sendFile(__dirname+"/weather1.html");
 });
 mongoose.set('strictQuery',true);
