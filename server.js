@@ -21,6 +21,19 @@ app.get("/resume", function(req, result){
 app.get("/weather1", function(req, result){
 	result.sendFile(__dirname+"/weather1.html");
 });
+
+app.get("/", function(req, result){
+	result.sendFile(__dirname+"/todo.html");
+});
+
+app.get("/api/todos",function(request,response){
+	response.json([
+		{name:"todo1" , isCompleted:true},
+		{name:"todo2" , isCompleted:false},
+		{name:"todo3" , isCompleted:true},
+	])
+});
+
 mongoose.set('strictQuery',true);
 mongoose.connect(process.env.MONGO_CONNECTION_STRING,{},function(err){
 	if(err)
