@@ -22,7 +22,7 @@ app.get("/weather1", function(req, result){
 	result.sendFile(__dirname+"/weather1.html");
 });
 
-app.get("/", function(req, result){
+app.get("/todo", function(req, result){
 	result.sendFile(__dirname+"/todo.html");
 });
 
