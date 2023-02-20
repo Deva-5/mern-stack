@@ -7,13 +7,6 @@ const userSchema = new mongoose.Schema({
     isDeleted:{type : Boolean,default :false}
 });
 
-const TODOSchema = new mongoose.Schema({
-    title :{type : String , required: true, unique: true},
-    isCompleted : {type : Boolean,default : false},
-    createAt : {type : Date,default:Date.now},
-    isDeleted:{type : Boolean,default :false},
-});
-
-const userModel = mongoose.model("user",userSchema) || mongoose.model("user",TODOSchema)  ;
+const userModel = mongoose.model("user",userSchema);
 
 module.exports = userModel;

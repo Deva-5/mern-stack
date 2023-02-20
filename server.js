@@ -1,5 +1,6 @@
 require('dotenv').config();
 const userLib = require("./backend/lib/userLib");
+const todoLib = require("./backend/lib/todoLib");
 const mongoose = require("mongoose");
 const express = require('express');
 const app = express();
@@ -7,7 +8,7 @@ const port = process.env.PORT || 5010;
 const options = { extensions:['html','htm','css','js','ico','jpg','jpeg','png','svg'],index:['card.html']}
 
 app.use(express.static(__dirname));
-
+app.use(express.json());
 app.use(express.static("public",options));
 
 app.get("/card", function(req, result){
@@ -26,12 +27,55 @@ app.get("/todo", function(req, result){
 	result.sendFile(__dirname+"/todo.html");
 });
 
-app.get("/api/todos",function(request,response){
-	response.json([
-		{name:"todo1" , isCompleted:true},
-		{name:"todo2" , isCompleted:false},
-		{name:"todo3" , isCompleted:true},
-	])
+app.get("/api/todos", function(req, res){
+	todoLib.getAllTodos(function(err,todos){
+		if(err)
+		{
+			res.json({status : "error", message : err , data : null})
+		}
+		else{
+			res.json({status: "success" , data : todos});
+		}
+	});
+});
+
+app.post("/api/todos",function(req,res){
+	const todo = req.body;
+	todoLib.createTodo(todo , function(err,dbtodo){
+		if(err)
+		{
+			res.json({status : "error", message : err , data : null})
+		}
+		else{
+			res.json({status: "success" , data : todo});
+		}
+	});
+});
+
+app.put("/api/todos/:todoid",function(req,res){
+	const dbtodo = req.body;
+	const todoid = req.params.todoid;
+	todoLib.updateTodoById(todoid,dbtodo,function(err,dbtodo){
+		if(err)
+		{
+			res.json({status : "error", message : err , data : null})
+		}
+		else{
+			res.json({status: "success" , data : dbtodo});
+		}
+	});
+});
+
+app.delete("/api/todos/:todoid",function(req,res){
+	const todoid = req.params.todoid;
+	todoLib.deleteTodoById(todoid,function(err,dbtodo){
+		if(err){
+			res.json({status : "error", message : err , data : null})
+		}
+		else{
+			res.json({status: "success" , data : dbtodo});
+		}
+	})
 });
 
 mongoose.set('strictQuery',true);
