@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+//const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     userName :{type : String , required: true, unique: true},
@@ -7,6 +8,8 @@ const userSchema = new mongoose.Schema({
     isDeleted:{type : Boolean,default :false}
 });
 
-const userModel = mongoose.model("user",userSchema);
+// const userModel = mongoose.model("user",userSchema);
 
-module.exports = userModel;
+// module.exports = userModel;
+
+export default mongoose.model("user",userSchema);

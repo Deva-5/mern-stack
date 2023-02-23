@@ -1,6 +1,7 @@
 {
   "name": "mern-web-dev",
   "version": "1.0.0",
+  "type" : "module",
   "description": "My first web project",
   "main": "server.js",
   "scripts": {

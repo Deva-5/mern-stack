@@ -1,30 +1,40 @@
-require('dotenv').config();
-const userLib = require("./backend/lib/userLib");
-const todoLib = require("./backend/lib/todoLib");
-const mongoose = require("mongoose");
-const express = require('express');
+//require('dotenv').config();
+// import dotenv from "dotenv";
+// dotenv.config();
+import {config} from "dotenv";
+config();
+//const userLib = require("./backend/lib/userLib");
+import * as userLib from "./backend/lib/userLib.js";
+// const todoLib = require("./backend/lib/todoLib");
+import * as todoLib from "./backend/lib/todoLib.js";
+//const mongoose = require("mongoose");
+import mongoose from "mongoose";
+//const express = require('express');
+//import express,{request} from "express";
+import  express from "express";
 const app = express();
 const port = process.env.PORT || 5010;
 const options = { extensions:['html','htm','css','js','ico','jpg','jpeg','png','svg'],index:['card.html']}
 
-app.use(express.static(__dirname));
+//app.use(express.static(process.cwd()));
+
 app.use(express.json());
 app.use(express.static("public",options));
 
 app.get("/card", function(req, result){
-	result.sendFile(__dirname+"/card.html");
+	result.sendFile(process.cwd()+"/card.html");
 });
 
 app.get("/resume", function(req, result){
-	result.sendFile(__dirname+"/resume.html");
+	result.sendFile(process.cwd()+"/resume.html");
 });
 
 app.get("/weather1", function(req, result){
-	result.sendFile(__dirname+"/weather1.html");
+	result.sendFile(process.cwd()+"/weather1.html");
 });
 
 app.get("/todo", function(req, result){
-	result.sendFile(__dirname+"/todo.html");
+	result.sendFile(process.cwd()+"/todo.html");
 });
 
 app.get("/api/todos", function(req, res){
