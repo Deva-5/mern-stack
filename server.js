@@ -16,7 +16,7 @@ const app = express();
 const port = process.env.PORT || 5010;
 const options = { extensions:['html','htm','css','js','ico','jpg','jpeg','png','svg'],index:['card.html']}
 
-//app.use(express.static(process.cwd()));
+app.use(express.static(process.cwd()));
 
 app.use(express.json());
 app.use(express.static("public",options));
