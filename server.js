@@ -7,7 +7,7 @@ const cors = require("cors");
 const todoModel = require('./backend/models/todoModel');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -152,7 +152,7 @@ app.get("/api/todos/deleted", function(req, res) {
 
 
 
-app.use('/songsApi', songsLib)
+//app.use('/songsApi', songsLib)
 
 
 
