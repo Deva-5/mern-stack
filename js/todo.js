@@ -1,45 +1,37 @@
-//const { createTodo } = require("../backend/lib/todoLib");
-
-//console.log("Hello from JS");
-
-//document.getElementById("loader").style.display = "none";
-
+//console.log("Hello from js");
 document.getElementById("loader").style.display = "block";
 
-const inputBox = document.getElementById("inputBox");
-inputBox.addEventListener('keydown',function(event){
-    if(event.keyCode === 13)
-    {
+const inputBox = document.getElementById('inputBox');
+inputBox.addEventListener('keydown', function(event) {
+    if (event.keyCode === 13) {
+        if (inputBox.value == "") alert("Please enter a todo");
         createTodo(inputBox.value);
-        inputBox.value="";
+        inputBox.value = "";
     }
 });
 
-const addButton = document.getElementById("addButton");
-addEventListener("click",function(){
-        createTodo(inputBox.value);
-        inputBox.value="";
-}); 
+const addButton = document.getElementById('addButton');
+addButton.addEventListener('click', function() {
+    if (inputBox.value == "") alert("Please enter a todo");
+    createTodo(inputBox.value);
+    inputBox.value = "";
+});
 
-async function createTodo(text){
-    //if text is null or undefined use inputbox.value
-    await fetch("/api/todos",{method : "POST" , headers :{"Content-Type" : "application/json"},body:JSON.stringify({title:text})});
-    await getAllTodos();
-}
-
-async function getAllTodos(){
-    const todoresult=await fetch("/api/todos");
-    const todos = await todoresult.json();
-    //alert(JSON.stringify(todolist));
-    const todoList = document.getElementById("todoList");
+async function getAllTodo() {
+    const response = await fetch("/api/todos");
+    const todos = await response.json();
+    // console.log(todos.data);
+    document.getElementById("loader").style.display = "none";
+    if (todos.status == "success") {
+        const todoList = document.getElementById("todoList");
 
         todoList.innerHTML = null
         console.log(todos);
         todoCount = todos.data.length;
         document.getElementById("todoCount").innerHTML = todoCount
-        
+
         todos.data.forEach((el, index) => {
-       
+
             let listItem = document.createElement("li");
             let labelItem = document.createElement("label");
             let inputItem = document.createElement("input");
@@ -57,13 +49,13 @@ async function getAllTodos(){
             inputItem.type = "checkbox";
             inputItem.value = "";
             inputItem.setAttribute("onclick", `setChecked("${el._id}")`)
-            inputItem.id =`Checkbox${index}`
-        
-            
+            inputItem.id = `Checkbox${index}`
+
+
             // * CREATING THE TEXT LABEL
             let textNode = document.createTextNode(el.title);
             labelItem.classList.add("form-check-label");
-            labelItem.setAttribute("for",`Checkbox${index}`)
+            labelItem.setAttribute("for", `Checkbox${index}`)
             labelItem.appendChild(textNode);
             labelItem.setAttribute("data-name", `${el._id}`);
 
@@ -71,7 +63,7 @@ async function getAllTodos(){
                 labelItem.classList.add("crossed")
                 inputItem.setAttribute("checked", "true")
             }
-            
+
             // * ADDING BOOTSTRAP CLASSES TO THE LIST ITEM <LI> TAG
             listItem.classList.add("list-group-item")
             listItem.classList.add("my-list-item")
@@ -82,10 +74,18 @@ async function getAllTodos(){
 
             todoList.appendChild(listItem);
         })
+        if (document.body.classList.contains('dark')) {
+            var todosLi = document.getElementsByClassName("list-group-item my-list-item");
+            for (var i = 0; i < todosLi.length; i++) {
+                todosLi[i].classList.add('dark');
+            }
 
+        }
+
+    }
 }
 
-getAllTodos();
+getAllTodo();
 
 async function createTodo(text) {
     const response = await fetch("/api/todos", {
@@ -107,6 +107,7 @@ async function deleteTodo(id) {
         method: "DELETE",
     });
     const data = await response.json();
+    //console.log(data);
     if (data.status == "success") {
         getAllTodo();
         getAllCompletedTodos();
@@ -190,6 +191,13 @@ async function getAllCompletedTodos() {
 
             todoList.appendChild(listItem);
         })
+        if (document.body.classList.contains('dark')) {
+            var todosLi = document.getElementsByClassName("list-group-item my-list-item");
+            for (var i = 0; i < todosLi.length; i++) {
+                todosLi[i].classList.add('dark');
+            }
+
+        }
     }
 }
 
@@ -271,34 +279,43 @@ async function getAllDeletedTodos() {
 
             todoList.appendChild(listItem);
         })
+        if (document.body.classList.contains('dark')) {
+            var todosLi = document.getElementsByClassName("list-group-item my-list-item");
+            for (var i = 0; i < todosLi.length; i++) {
+                todosLi[i].classList.add('dark');
+            }
+
+        }
     }
 }
 
+
+
+
 fetch("/api/todos")
-    .then(function(response){
+    .then(function(response) {
         return response.json();
     })
-
-    .then(function(data){
-        console.log(data);
-
+    .then(function(data) {
+        //console.log(data);
         document.getElementById("loader").style.display = "none";
-
-
     });
 
 
-    var light = true;
 
+const themeButton = document.getElementById('themeButton');
 
-    function setTheme(){
-        if(light){
-            document.documentElement.setAttribute("data-bs-theme","dark");
-            document.getElementById("themeButton").innerHTML = '<i class="fas fa-sun fa-lg fa-fw"></i></button> ';
-        }
-        else{
-            document.documentElement.setAttribute("data-bs-theme","light");
-            document.getElementById("themeButton").innerHTML = '<i class="fas fa-moon fa-lg fa-fw"></i></button> ';
-        }
-        light = ! light;
+themeButton.addEventListener('click', function() {
+    document.body.classList.toggle('dark');
+    var todosLi = document.getElementsByClassName("list-group-item my-list-item");
+    for (var i = 0; i < todosLi.length; i++) {
+        todosLi[i].classList.toggle('dark');
     }
+    var state = document.getElementById("dt-icon").className;
+    //console.log(state);
+    if (state == "fas fa-moon fa-lg fa-fw") {
+        document.getElementById("dt-icon").className = "fas fa-sun fa-lg fa-fw";
+    } else {
+        document.getElementById("dt-icon").className = "fas fa-moon fa-lg fa-fw";
+    }
+});
