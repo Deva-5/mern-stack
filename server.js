@@ -1,6 +1,5 @@
 require('dotenv').config();
 const userLib = require("./backend/lib/userLib");
-const songsLib = require("./backend/lib/songsLib");
 const todoLib = require("./backend/lib/todoLib");
 const express = require('express');
 const mongoose = require('mongoose');
@@ -30,7 +29,7 @@ app.get('/card', function(req, res) {
 
 
 app.get('/weatherApp', function(req, res) {
-    res.sendFile(__dirname + '/weatherApp.html');
+    res.sendFile(__dirname + '/weather1.html');
 });
 
 app.get('/todo', function(req, res) {
