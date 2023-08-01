@@ -78,3 +78,22 @@ export const deleteTodoById = async function(id,callback){
         callback(err,null);
     }
 }
+export const getAllCompletedTodos = async function(callback){
+    try{
+        var todo = await todoModel.find({isCompleted : true,isDeleted : false});
+        callback(null,result);
+    }
+    catch(err){
+        callback(err,null);
+    }
+}
+
+export const getAllDeletedTodos = async function(callback){
+    try{
+        var todo = await todoModel.find({isDeleted : true});
+        callback(null,result);
+    }
+    catch(err){
+        callback(err,null);
+    }
+}

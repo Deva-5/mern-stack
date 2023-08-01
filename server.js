@@ -16,7 +16,7 @@ const app = express();
 const port = process.env.PORT || 5010;
 const options = { extensions:['html','htm','css','js','ico','jpg','jpeg','png','svg'],index:['card.html']}
 
-//app.use(express.static(process.cwd()));
+app.use(express.static(process.cwd()));
 
 app.use(express.json());
 app.use(express.static("public",options));
@@ -35,6 +35,10 @@ app.get("/weather1", function(req, result){
 
 app.get("/todo", function(req, result){
 	result.sendFile(process.cwd()+"/todo.html");
+});
+
+app.get("/number_game", function(req, result){
+	result.sendFile(process.cwd()+"/number_game.html");
 });
 
 app.get("/api/todos", function(req, res){
