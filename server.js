@@ -96,25 +96,23 @@ app.delete(("/api/todos/:todoid"),function(req,res){
 });
 
 app.get("/", function(req, res){
-	res.sendFile(process.cwd()+"/frontend/html/index.html");
+	res.sendFile(process.cwd()+"/index.html");
 });
 
 app.get("/resume", function(req, res){
-	res.sendFile(process.cwd()+"/frontend/html/resume.html");
+	res.sendFile(process.cwd()+"/resume.html");
 });
 
 app.get("/card", function(req, res){
-	res.sendFile(process.cwd()+"/frontend/html/card.html");
+	res.sendFile(process.cwd()+"/card.html");
 });
 app.get("/weather", function(req, res){
-	res.sendFile(process.cwd()+"/frontend/html/weather.html");
+	res.sendFile(process.cwd()+"/weather1.html");
 });
 app.get("/todo", function(req, res){
-	res.sendFile(process.cwd()+"/frontend/html/todolist.html");
+	res.sendFile(process.cwd()+"todo.html");
 });
-app.get("/about", function(req, res){
-	res.sendFile(process.cwd()+"/frontend/html/about.html");
-});
+
 mongoose.set('strictQuery', true);
 mongoose.connect(process.env.MONGO_CONNECTION_STRING,{},function (err){
 	if(err){
