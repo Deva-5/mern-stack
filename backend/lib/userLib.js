@@ -1,79 +1,74 @@
-const userModel = require("../models/userModel");
+import {userModel} from "../models/userModel.js";
 
-// CREATE
+export async function getAllUsers(callback){
+    try{
+        var users = await userModel.find({isDeleted: false});
+        callback(null,users);
+    }
+    catch(err){
+        callback(err,null);
+    }
+}
 
-// creates first user
-module.exports.createFirstUser = async function(callback) {
-    try {
+export async function createFirstUser(callback){
+    try{
         var user = {
-            userName: "harshavb08",
+            userName: "beingzero",
             yearOfGraduation: 2024,
         };
         var newUser = new userModel(user);
         var result = await newUser.save();
-        callback(null, result);
-    } catch (err) {
-        callback(err, null);
+        callback(null,result);
+    }
+    catch(err){
+        callback(err,null);
     }
 }
 
-// create a user
-module.exports.createUser = async function(user, callback) {
-    try {
+export async function createUser(user,callback){
+    try{
         var newUser = new userModel(user);
         var result = await newUser.save();
-        callback(null, result);
-    } catch (err) {
-        callback(err, null);
+        callback(null,result);
+    }
+    catch(err){
+        callback(err,null);
     }
 }
 
-// READ
+export async function updateUser(username,data,callback){
+    try{
+        var query = {
+            userName: username,
+        };
+        var result = await userModel.updateOne(query,data);
+        callback(null,result);
 
-// get all users
-module.exports.getAllUsers = async function(callback) {
-    try {
-        var users = await userModel.find({});
-        callback(null, users);
-    } catch (err) {
-        callback(err, null);
+    }
+    catch(err){
+        callback(err,null);
     }
 }
 
-// get user by userName
-module.exports.getUserByUserName = async function(userName, callback) {
-    try {
-        var query = { userName: userName };
-        var user = await userModel.find(query);
-        callback(null, user);
-    } catch (err) {
-        callback(err, null);
+export async function deleteUser(username,callback){
+    try{
+        var query = {
+            userName: username,
+        };
+        var result = await userModel.updateOne(query,{isDeleted: true});
+        callback(null,result);
+    }
+    catch(err){
+        callback(err,null);
     }
 }
 
-// UPDATE
-
-// update values by userName
-module.exports.updateUserByUserName = async function(userName, newValues, callback) {
-    try {
-        var query = { userName: userName };
-        var updatedUser = await userModel.findOneAndUpdate(query, newValues, { new: true });
-        callback(null, updatedUser);
-    } catch (err) {
-        callback(err, null);
+export const getUserByFilter = async function(filter,callback){
+    try{
+        var user = await userModel.find(filter);
+        callback(null,user);
     }
-}
-
-// DELETE   
-
-// delete user by userName
-
-module.exports.deleteUserByUserName = async function(userName, callback) {
-    try {
-        var query = { userName: userName };
-        var deletedUser = await userModel.findOneAndDelete(query);
-        callback(null, deletedUser);
-    } catch (err) {
-        callback(err, null);
+    catch(err){
+        callback(err,null);
     }
 }
