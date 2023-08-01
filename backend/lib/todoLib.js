@@ -1,8 +1,6 @@
-//const { default: mongoose } = require("mongoose");
-import mongoose from "mongoose";
-//const todoModel = require("../models/todoModel");
-//import todoModel from "../models/todoModel.js";
-import todoModel from "../models/todoModel.js";
+const { default: mongoose } = require("mongoose");
+const todoModel = require("../models/todoModel");
+
 /*
 1. createTodo
 2. getAllTodos
@@ -12,88 +10,80 @@ import todoModel from "../models/todoModel.js";
 6. DeleteTodoById
 */
 
-export const createTodo = async function(todo,callback){
-    try{
+module.exports.createTodo = async function(todo, callback) {
+    try {
         var newTodo = new todoModel(todo);
         var result = await newTodo.save();
-        callback(null,result);
-    }
-    catch(err){
-        callback(err,null);
+        callback(null, result);
+    } catch (err) {
+        callback(err, null);
     }
 }
-export const getAllTodos = async function(callback){
-    try{
-        var todos = await todoModel.find({isCompleted: false,isDeleted: false});
-        callback(null,todos);
-    }
-    catch(err){
-        callback(err,null);
+module.exports.getAllTodos = async function(callback) {
+    try {
+        var todos = await todoModel.find({ isCompleted: false, isDeleted: false });
+        callback(null, todos);
+    } catch (err) {
+        callback(err, null);
     }
 }
 
-export const getTodosByQuery = async function(query,callback){
-    try{
+module.exports.getTodosByQuery = async function(query, callback) {
+    try {
         var todos = await todoModel.find(query);
-        callback(null,todos);
-    }
-    catch(err){
-        callback(err,null);
+        callback(null, todos);
+    } catch (err) {
+        callback(err, null);
     }
 }
 
-export const getSingleTodoById = async function(id,callback){
-    try{
+module.exports.getSingleTodoById = async function(id, callback) {
+    try {
         var todo = await todoModel.findOne(id);
-        callback(null,todo);
-    }
-    catch(err){
-        callback(err,null);
+        callback(null, todo);
+    } catch (err) {
+        callback(err, null);
     }
 }
 
-export const updateTodoById = async function(id,data,callback){
-    try{
+module.exports.updateTodoById = async function(id, data, callback) {
+    try {
         var todo = {
-            //_id: new mongoose.Types.ObjectId(id),
-            _id : id,
+            _id: new mongoose.Types.ObjectId(id),
         };
-        var result = await todoModel.updateOne(todo,data);
-        callback(null,result);
-    }
-    catch(err){
-        callback(err,null);
+        var result = await todoModel.findOneAndUpdate(todo, data);
+        callback(null, result);
+    } catch (err) {
+        callback(err, null);
     }
 }
 
-export const deleteTodoById = async function(id,callback){
-    try{
+module.exports.deleteTodoById = async function(id, callback) {
+    try {
         var todo = {
             _id: id,
         };
-        var result = await todoModel.updateOne(todo,{isDeleted: true});
-        callback(null,result);
-    }
-    catch(err){
-        callback(err,null);
-    }
-}
-export const getAllCompletedTodos = async function(callback){
-    try{
-        var todo = await todoModel.find({isCompleted : true,isDeleted : false});
-        callback(null,result);
-    }
-    catch(err){
-        callback(err,null);
+        var result = await todoModel.findOneAndUpdate(todo, { isDeleted: true });
+        callback(null, result);
+    } catch (err) {
+        callback(err, null);
     }
 }
 
-export const getAllDeletedTodos = async function(callback){
-    try{
-        var todo = await todoModel.find({isDeleted : true});
-        callback(null,result);
+module.exports.getAllCompletedTodos = async function(callback) {
+    try {
+        var todos = await todoModel.find({ isCompleted: true, isDeleted: false });
+        callback(null, todos);
+    } catch (err) {
+        callback(err, null);
     }
-    catch(err){
-        callback(err,null);
+}
+
+module.exports.getAllDeletedTodos = async function(callback) {
+    try {
+        var todos = await todoModel.find({ isDeleted: true });
+        callback(null, todos);
+    } catch (err) {
+        callback(err, null);
     }
 }
